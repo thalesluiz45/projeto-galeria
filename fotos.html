@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Galeria de imagens</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <h1>Galeria de imagens</h1>
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./fotos.html">Fotos</a></li>
+        </ul>
+      </nav>
+      <main class="photo-gallery">
+        <h1>Galeria de Imagens</h1>
+
+        <!-- Upload -->
+        <div class="upload-container">
+          <label for="upload">Escolha uma imagem:</label>
+          <input type="file" id="upload" accept="image/*" />
+        </div>
+
+        <!-- Galeria -->
+        <div class="galeria" id="galeria"></div>
+
+        <!-- Modal -->
+        <div class="modal" id="modal">
+          <span class="fechar" id="fechar">&times;</span>
+          <img class="modal-conteudo" id="imgModal" />
+        </div>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

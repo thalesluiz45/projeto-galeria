@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&family=Libre+Baskerville:ital@0;1&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  --background: black;
+  --fontSecond: black;
+  --fontFirst: white;
+}
+
+body {
+  font-family: "Darker Grotesque", serif;
+  background-color: var(--background);
+  color: var(--fontFirst);
+  font-weight: 400;
+}
+li {
+  list-style: none;
+}
+h1 {
+  font-size: 2rem;
+}
+a {
+  color: var(--fontFirst);
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+a:hover {
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+}
+.navbar {
+  width: 20vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-right: 1px solid gray;
+}
+
+.navbar h1 {
+  margin-bottom: 20px;
+}
+
+.navbar ul {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.gallery {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./assets/background.png);
+  background-size: cover;
+  color: var(--fontSecond);
+}
+.gallery-title {
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+
+.photo-gallery {
+  text-align: center;
+  width: 80vw;
+}
+.photo-gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+input[type="file"] {
+  margin-top: 10px;
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.imagem-container {
+  position: relative;
+}
+
+.galeria img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.galeria img:hover {
+  transform: scale(1.05);
+}
+
+.btn-remover {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 0, 0, 0.8);
+  color: var(--fontFirst);
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.modal-conteudo {
+  display: block;
+  margin: 10% auto;
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
+}
+
+.fechar {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: #fff;
+  font-size: 40px;
+  cursor: pointer;
+}
