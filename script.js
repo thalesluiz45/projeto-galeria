@@ -1,33 +1,41 @@
-const galeria = document.getElementById("galeria");
-const modal = document.getElementById("modal");
-const imgModal = document.getElementById("imgModal");
-const fechar = document.getElementById("fechar");
-const uploadInput = document.getElementById("upload");
+var galeria = document.getElementById("galeria");
+var modal = document.getElementById("modal");
+var imgModal = document.getElementById("imgModal");
+var fechar = document.getElementById("fechar");
+var uploadInput = document.getElementById("upload");
 
 function abrirModal(src) {
   modal.style.display = "block";
   imgModal.src = src;
 }
 
-fechar.addEventListener("click", () => (modal.style.display = "none"));
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) modal.style.display = "none";
+fechar.addEventListener("click", function () {
+  modal.style.display = "none";
 });
 
-// Criar imagem com botão de remoção
-function criarContainerImagem(src, salvar = true, index = null) {
-  const container = document.createElement("div");
-  container.classList.add("imagem-container");
+modal.addEventListener("click", function (e) {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
 
-  const img = document.createElement("img");
+function criarContainerImagem(src, salvar, index) {
+  var container = document.createElement("div");
+  container.className = "imagem-container";
+
+  var img = document.createElement("img");
   img.src = src;
   img.alt = "Imagem";
-  img.addEventListener("click", () => abrirModal(img.src));
 
-  const btnRemover = document.createElement("button");
+  img.addEventListener("click", function () {
+    abrirModal(img.src);
+  });
+
+  var btnRemover = document.createElement("button");
   btnRemover.textContent = "Remover";
-  btnRemover.classList.add("btn-remover");
-  btnRemover.addEventListener("click", (e) => {
+  btnRemover.className = "btn-remover";
+
+  btnRemover.addEventListener("click", function (e) {
     e.stopPropagation();
     container.remove();
     if (index !== null) {
@@ -40,15 +48,16 @@ function criarContainerImagem(src, salvar = true, index = null) {
   container.appendChild(btnRemover);
   galeria.appendChild(container);
 
-  if (salvar) salvarImagemNoLocalStorage(src);
+  if (salvar !== false) {
+    salvarImagemNoLocalStorage(src);
+  }
 }
 
-// Upload de imagem
-uploadInput.addEventListener("change", (event) => {
-  const file = event.target.files[0];
+uploadInput.addEventListener("change", function (event) {
+  var file = event.target.files[0];
   if (!file) return;
 
-  const reader = new FileReader();
+  var reader = new FileReader();
   reader.onload = function (e) {
     salvarImagemNoLocalStorage(e.target.result);
     recarregarGaleria();
@@ -56,23 +65,24 @@ uploadInput.addEventListener("change", (event) => {
   reader.readAsDataURL(file);
 });
 
-// LocalStorage
 function salvarImagemNoLocalStorage(src) {
-  let imagens = JSON.parse(localStorage.getItem("galeriaImagens")) || [];
+  var imagens = JSON.parse(localStorage.getItem("galeriaImagens")) || [];
   imagens.push(src);
   localStorage.setItem("galeriaImagens", JSON.stringify(imagens));
 }
 
 function removerImagemDoLocalStoragePorIndice(index) {
-  let imagens = JSON.parse(localStorage.getItem("galeriaImagens")) || [];
+  var imagens = JSON.parse(localStorage.getItem("galeriaImagens")) || [];
   imagens.splice(index, 1);
   localStorage.setItem("galeriaImagens", JSON.stringify(imagens));
 }
 
 function recarregarGaleria() {
-  galeria.innerHTML = ""; // limpa a galeria inteira
-  const imagens = JSON.parse(localStorage.getItem("galeriaImagens")) || [];
-  imagens.forEach((src, index) => criarContainerImagem(src, false, index));
+  galeria.innerHTML = "";
+  var imagens = JSON.parse(localStorage.getItem("galeriaImagens")) || [];
+  for (var i = 0; i < imagens.length; i++) {
+    criarContainerImagem(imagens[i], false, i);
+  }
 }
 
 // Inicializa
