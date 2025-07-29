@@ -20,24 +20,31 @@ modal.addEventListener("click", function (e) {
 });
 
 uploadInput.addEventListener("change", function (event) {
-  var file = event.target.files[0];
-  if (!file) return;
+  var arquivos = event.target.files;
+  if (!arquivos.length) return;
 
-  var reader = new FileReader();
-  reader.onload = function (e) {
-    var container = document.createElement("div");
-    container.className = "imagem-container";
+  for (var i = 0; i < arquivos.length; i++) {
+    (function (file) {
+      var reader = new FileReader();
+      reader.onload = function (imagem) {
+        var container = document.createElement("div");
+        container.className = "imagem-container";
 
-    var img = document.createElement("img");
-    img.src = e.target.result;
-    img.alt = "Imagem";
+        var img = document.createElement("img");
+        img.src = imagem.target.result;
+        img.alt = "Imagem";
 
-    img.addEventListener("click", function () {
-      abrirModal(img.src);
-    });
+        img.addEventListener("click", function () {
+          abrirModal(img.src);
+        });
 
-    container.appendChild(img);
-    galeria.appendChild(container);
-  };
-  reader.readAsDataURL(file);
+        container.appendChild(img);
+        galeria.appendChild(container);
+      };
+      reader.readAsDataURL(file);
+    })(arquivos[i]);
+  }
+
+  // Limpa o campo de input após adicionar
+  uploadInput.value = "";
 });
